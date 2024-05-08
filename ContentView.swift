@@ -18,14 +18,18 @@ struct ContentView: View {
     
     var body: some View {
         ZStack {
-            Color.blue
+            //Color.blue
+            LinearGradient(colors: [.blue, .black], startPoint: .top, endPoint: .bottom)
                 .ignoresSafeArea()
             VStack(spacing: 30) {
                 VStack {
                 Text("Tap the flag on")
                         .foregroundStyle(.white)
+                        //.font(.subheadline.weight(.heavy))
+                        .font(.largeTitle.weight(.semibold))
                 Text(countries[correctAnswer])
                         .foregroundStyle(.white)
+                        .font(.largeTitle.weight(.semibold))
                 }
                 ForEach(0..<3) { number in
                     Button {
@@ -33,6 +37,8 @@ struct ContentView: View {
                         flagTapped(number)
                     } label: {
                         Image(countries[number])
+                            .clipShape(.capsule)
+                            .shadow(radius: 5)
                     }
                 }
             }
@@ -57,7 +63,6 @@ struct ContentView: View {
         countries.shuffle()
         correctAnswer = Int.random(in: 0...2)
     }
-    
 }
 
 #Preview {
