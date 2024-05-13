@@ -16,7 +16,7 @@ struct ContentView: View {
     @State private var showingScore = false
     @State private var scoreTitle = ""
     
-    //MARK: Keep tracking of the user's score
+    //MARK: Challenge 1. - Add an @State property to store the user’s score, modify it when they get an answer right or wrong, then display it in the alert and in the score label.
     @State private var score = 0
     
     var body: some View {
@@ -92,7 +92,8 @@ struct ContentView: View {
             if score > 0 {
                 score -= 1
             }
-            scoreTitle = "Wrong answer"
+            //MARK: Challenge 2. When someone chooses the wrong flag, tell them their mistake in your alert message – something like “Wrong! That’s the flag of France,” for example.
+            scoreTitle = "Wrong answer. That’s the flag of \(countries[number])"
         }
         showingScore = true
     }
