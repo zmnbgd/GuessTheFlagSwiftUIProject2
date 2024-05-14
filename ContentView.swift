@@ -19,6 +19,12 @@ struct ContentView: View {
     //MARK: Challenge 1. - Add an @State property to store the user’s score, modify it when they get an answer right or wrong, then display it in the alert and in the score label.
     @State private var score = 0
     
+    
+    // MARK: Challenge 3. - Make the game show only 8 questions, at which point they see a final alert judging their score and can restart the game.
+    @State private var questionNumber = 1
+    
+    @State private var gameOver = false
+    
     var body: some View {
         
         ZStack {
@@ -82,6 +88,12 @@ struct ContentView: View {
         } message: {
             Text("Your score is \(score)")
         }
+        
+        .alert("", isPresented: $gameOver) {
+            Button("New game", action: newGame)
+        } message: {
+            Text("Your final score is \(score)")
+        }
     }
     
     func flagTapped(_ number: Int) {
@@ -96,11 +108,22 @@ struct ContentView: View {
             scoreTitle = "Wrong answer. That’s the flag of \(countries[number])"
         }
         showingScore = true
+        
+        if questionNumber == 8 {
+            gameOver = true
+            showingScore = false
+        }
     }
     
     func askQuestion() {
         countries.shuffle()
         correctAnswer = Int.random(in: 0...2)
+    }
+    
+    func newGame() {
+        askQuestion()
+        questionNumber = 1
+        score = 0
     }
 }
 
